@@ -1,4 +1,4 @@
-import { Engine, Scene, Color4, HemisphericLight, Vector3, ArcRotateCamera, Tools, SceneLoader } from "babylonjs";
+import { Engine, Scene, Color3, Color4, HemisphericLight, Vector3, ArcRotateCamera, MeshBuilder, Tools, SceneLoader } from "babylonjs";
 import "babylonjs-loaders"
 
 const canvas = document.getElementById("renderCanvas") as HTMLCanvasElement;
@@ -10,20 +10,31 @@ function createScene() {
 
     createLight(scene);
     createCamera(scene);
+    createGonBedroom(scene);
 
     return scene;
 }
 
 function createLight(scene) {
-    let light = new HemisphericLight("light", new Vector3(0, 5, 0), scene);
-    light.intensity = 2;
+    const light_position = new Vector3(0, 40, 0);
+
+    let light = new HemisphericLight("light", light_position, scene);
+    light.intensity = 1;
+    light.diffuse = new Color3(1, 1, 0);
+
+    const light_origin = MeshBuilder.CreateSphere("sphere", { diameter: 0.3 }, scene);
+    light_origin.position = light_position;
 }
 
 function createCamera(scene) {
-    let camera = new ArcRotateCamera("cam", Tools.ToRadians(45), Tools.ToRadians(45), 50, new Vector3(0, 20, 0), scene);
+    let camera = new ArcRotateCamera("cam", Tools.ToRadians(45), Tools.ToRadians(45), 50, new Vector3(0, 35, 0), scene);
     camera.lowerRadiusLimit = 0;
     camera.upperRadiusLimit = 5;
     camera.attachControl(canvas, true);
+}
+
+function createGonBedroom(scene) {
+    const gonBedroomImport = SceneLoader.ImportMesh('', './assets/', 'gon-bedroom.glb', scene);
 }
 
 
