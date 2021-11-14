@@ -19,8 +19,7 @@ function createLight(scene) {
     const light_position = new Vector3(0, 40, 0);
 
     let light = new HemisphericLight("light", light_position, scene);
-    light.intensity = 1;
-    light.diffuse = new Color3(1, 1, 0);
+    light.intensity = 1.5;
 
     const light_origin = MeshBuilder.CreateSphere("sphere", { diameter: 0.3 }, scene);
     light_origin.position = light_position;
